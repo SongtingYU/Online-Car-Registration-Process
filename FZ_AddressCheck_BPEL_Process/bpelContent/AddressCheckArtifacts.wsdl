@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<definitions name="AddressCheck"
+	targetNamespace="http://gnafaddressservice.soacourse.unsw.edu.au/addresscheck"
+	xmlns:tns="http://gnafaddressservice.soacourse.unsw.edu.au/addresscheck"
+	xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:addrc="http://gnafaddressservice.soacourse.unsw.edu.au">
+
+	<import location="GNAFAddressService.wsdl"
+		namespace="http://gnafaddressservice.soacourse.unsw.edu.au" />
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		TYPE DEFINITION - List of types participating in this BPEL process The BPEL 
+		Designer will generate default request and response types but you can define 
+		or import any XML Schema type and use them as part of the message types. 
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<types>
+		<schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+			targetNamespace="http://gnafaddressservice.soacourse.unsw.edu.au/addresscheck"
+			xmlns="http://www.w3.org/2001/XMLSchema">
+
+			<element name="AddressCheckRequest">
+				<complexType>
+					<sequence>
+						<element name="address" type="string" />
+					</sequence>
+				</complexType>
+			</element>
+
+			<element name="AddressCheckResponse">
+				<complexType>
+					<sequence>
+						<element name="CheckResponseCode" type="string" />
+						<element name="CheckResponseData" type="string" />
+						<element name="CheckResponseStatus" type="string" />
+					</sequence>
+				</complexType>
+			</element>
+		</schema>
+	</types>
+
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		MESSAGE TYPE DEFINITION - Definition of the message types used as part of 
+		the port type defintions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<message name="AddressCheckRequestMessage">
+		<part name="payload" element="tns:AddressCheckRequest" />
+	</message>
+	<message name="AddressCheckResponseMessage">
+		<part name="payload" element="tns:AddressCheckResponse" />
+	</message>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		PORT TYPE DEFINITION - A port type groups a set of operations into a logical 
+		service unit. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<!-- portType implemented by the AddressCheck BPEL process -->
+	<portType name="AddressCheck">
+		<operation name="process">
+			<input message="tns:AddressCheckRequestMessage" />
+			<output message="tns:AddressCheckResponseMessage" />
+		</operation>
+	</portType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		PARTNER LINK TYPE DEFINITION ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<plnk:partnerLinkType name="AddressCheck">
+		<plnk:role name="AddressCheckProvider" portType="tns:AddressCheck" />
+	</plnk:partnerLinkType>
+	<plnk:partnerLinkType name="GNAFLinkType">
+		<plnk:role name="GNAFAddressServiceProvider" portType="addrc:GNAFAddressService" />
+	</plnk:partnerLinkType>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		BINDING DEFINITION - Defines the message format and protocol details for 
+		a web service. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<binding name="AddressCheckBinding" type="tns:AddressCheck">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="process">
+			<soap:operation
+				soapAction="http://gnafaddressservice.soacourse.unsw.edu.au/addresscheck/process" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+	</binding>
+
+	<binding name="GNAFAddressServiceBinding" type="addrc:GNAFAddressService">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="addressExistsInFile">
+			<soap:operation
+				soapAction="http://gnafaddressservice.soacourse.unsw.edu.au/addressExistsInFile" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+
+		<operation name="addressExistsInFile">
+			<soap:operation
+				soapAction="http://gnafaddressservice.soacourse.unsw.edu.au/addressExistsInFile" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+	</binding>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		SERVICE DEFINITION - A service groups a set of ports into a service unit. 
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<service name="AddressCheckService">
+		<port name="AddressCheckPort" binding="tns:AddressCheckBinding">
+			<soap:address location="http://localhost:6060/ode/processes/AddressCheck" />
+		</port>
+	</service>
+</definitions>

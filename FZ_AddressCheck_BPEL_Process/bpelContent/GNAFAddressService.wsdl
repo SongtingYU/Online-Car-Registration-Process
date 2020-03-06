@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://gnafaddressservice.soacourse.unsw.edu.au"
+	name="GNAFAddressService" targetNamespace="http://gnafaddressservice.soacourse.unsw.edu.au">
+	<wsdl:types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			xmlns:tns="http://gnafaddressservice.soacourse.unsw.edu.au"
+			targetNamespace="http://gnafaddressservice.soacourse.unsw.edu.au"
+			version="1.0">
+
+			<xs:element name="addressExistsInFileFault" type="tns:serviceFaultType" />
+
+			<xs:element name="addressExistsInFileRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="address" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="addressExistsInFileResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="returnData" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="returnPostcodeInfoFault" type="tns:serviceFaultType" />
+
+			<xs:element name="returnPostcodeInfoRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="suburb" type="xs:string" />
+						<xs:element name="state" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="returnPostcodeInfoResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="returnData" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="similarAddressesInFileFault" type="tns:serviceFaultType" />
+
+			<xs:element name="similarAddressesInFileRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="address" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="similarAddressesInFileResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="returnData" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:complexType name="serviceFaultType">
+				<xs:sequence>
+					<xs:element name="errcode" type="xs:string" />
+					<xs:element name="errtext" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+
+		</xs:schema>
+	</wsdl:types>
+
+
+	<wsdl:message name="addressExistsInFile">
+		<wsdl:part element="ns1:addressExistsInFileRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="addressExistsInFileResponse">
+		<wsdl:part element="ns1:addressExistsInFileResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="AddressExistsInFileFaultMsg">
+		<wsdl:part element="ns1:addressExistsInFileFault" name="AddressExistsInFileFaultMsg">
+		</wsdl:part>
+	</wsdl:message>
+
+
+	<wsdl:message name="similarAddressesInFile">
+		<wsdl:part element="ns1:similarAddressesInFileRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="similarAddressesInFileResponse">
+		<wsdl:part element="ns1:similarAddressesInFileResponse"
+			name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="SimilarAddressesInFileFaultMsg">
+		<wsdl:part element="ns1:similarAddressesInFileFault" name="SimilarAddressesInFileFaultMsg">
+		</wsdl:part>
+	</wsdl:message>
+
+
+	<wsdl:message name="returnPostcodeInfo">
+		<wsdl:part element="ns1:returnPostcodeInfoRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="returnPostcodeInfoResponse">
+		<wsdl:part element="ns1:returnPostcodeInfoResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="ReturnPostcodeInfoFaultMsg">
+		<wsdl:part element="ns1:returnPostcodeInfoFault" name="ReturnPostcodeInfoFaultMsg">
+		</wsdl:part>
+	</wsdl:message>
+
+
+
+	<wsdl:portType name="GNAFAddressService">
+		<wsdl:operation name="addressExistsInFile">
+			<wsdl:input message="ns1:addressExistsInFile" name="addressExistsInFile">
+			</wsdl:input>
+			<wsdl:output message="ns1:addressExistsInFileResponse"
+				name="addressExistsInFileResponse">
+			</wsdl:output>
+			<wsdl:fault message="ns1:AddressExistsInFileFaultMsg"
+				name="AddressExistsInFileFaultMsg">
+			</wsdl:fault>
+		</wsdl:operation>
+
+
+		<wsdl:operation name="similarAddressesInFile">
+			<wsdl:input message="ns1:similarAddressesInFile" name="similarAddressesInFile">
+			</wsdl:input>
+			<wsdl:output message="ns1:similarAddressesInFileResponse"
+				name="similarAddressesInFileResponse">
+			</wsdl:output>
+			<wsdl:fault message="ns1:SimilarAddressesInFileFaultMsg"
+				name="SimilarAddressesInFileFaultMsg">
+			</wsdl:fault>
+		</wsdl:operation>
+
+
+		<wsdl:operation name="returnPostcodeInfo">
+			<wsdl:input message="ns1:returnPostcodeInfo" name="returnPostcodeInfo">
+			</wsdl:input>
+			<wsdl:output message="ns1:returnPostcodeInfoResponse"
+				name="returnPostcodeInfoResponse">
+			</wsdl:output>
+			<wsdl:fault message="ns1:ReturnPostcodeInfoFaultMsg" name="ReturnPostcodeInfoFaultMsg">
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:portType>
+</wsdl:definitions>

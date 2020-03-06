@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://gnafaddressservice.soacourse.unsw.edu.au/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http"
+	xmlns:ns1="http://gnafaddressservice.soacourse.unsw.edu.au" name="GNAFAddressServiceImplService"
+	targetNamespace="http://gnafaddressservice.soacourse.unsw.edu.au/">
+
+
+	<wsdl:import location="GNAFAddressService.wsdl"
+		namespace="http://gnafaddressservice.soacourse.unsw.edu.au">
+	</wsdl:import>
+
+
+	<wsdl:binding name="GNAFAddressServiceImplServiceSoapBinding"
+		type="ns1:GNAFAddressService">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+
+
+		<wsdl:operation name="addressExistsInFile">
+			<soap:operation
+				soapAction="http://gnafaddressservice.soacourse.unsw.edu.au/addressExistsInFile"
+				style="document" />
+			<wsdl:input name="addressExistsInFile">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="addressExistsInFileResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="AddressExistsInFileFaultMsg">
+				<soap:fault name="AddressExistsInFileFaultMsg" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+
+
+		<wsdl:operation name="similarAddressesInFile">
+			<soap:operation
+				soapAction="http://gnafaddressservice.soacourse.unsw.edu.au/similarAddressesInFile"
+				style="document" />
+			<wsdl:input name="similarAddressesInFile">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="similarAddressesInFileResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="SimilarAddressesInFileFaultMsg">
+				<soap:fault name="SimilarAddressesInFileFaultMsg" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+
+
+		<wsdl:operation name="returnPostcodeInfo">
+			<soap:operation
+				soapAction="http://gnafaddressservice.soacourse.unsw.edu.au/returnPostcodeInfo"
+				style="document" />
+			<wsdl:input name="returnPostcodeInfo">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="returnPostcodeInfoResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="ReturnPostcodeInfoFaultMsg">
+				<soap:fault name="ReturnPostcodeInfoFaultMsg" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+
+
+
+	<wsdl:service name="GNAFAddressServiceImplService">
+		<wsdl:port binding="tns:GNAFAddressServiceImplServiceSoapBinding"
+			name="GNAFAddressServiceImplPort">
+			<soap:address
+				location="http://localhost:8080/GNAFAddressingService/GNAFAddressService" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
